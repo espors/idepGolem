@@ -22,6 +22,11 @@ mod_01_load_data_ui <- function(id) {
           inputId = ns("go_button"),
           label = "Click here to load demo data"
         ),
+        tippy::tippy_this(
+          elementId = ns("go_button"), 
+          tooltip = "Load the demo data", 
+          theme = "light-border"
+        ),
         tags$head(tags$style(
           "#load_data-go_button{color: red;
           font-size: 16px;
