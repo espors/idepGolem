@@ -307,7 +307,8 @@ mod_03_clustering_ui <- function(id) {
               outputId = ns("sample_tree"),
               width = "100%",
               height = "400px"
-            )
+            ), 
+            mod_download_images_ui(ns("download_sample_tree"))
           )
         )
       )
@@ -723,9 +724,9 @@ mod_03_clustering_server <- function(id, pre_process, idep_data, tab) {
 
   
     # Sample Tree ----------
-    output$sample_tree <- renderPlot({
+    samp_tree <- reactive({
       req(!is.null(pre_process$data()))
-
+      
       draw_sample_tree(
         tree_data = pre_process$data(),
         gene_centering = input$gene_centering,
@@ -738,6 +739,16 @@ mod_03_clustering_server <- function(id, pre_process, idep_data, tab) {
         dist_function = input$dist_function
       )
     })
+    
+    output$sample_tree <- renderPlot({
+      print(samp_tree())
+    })
+    
+    download_sample_tree <- mod_download_images_server(
+      "download_sample_tree", 
+      filename = "sample_tree_plot", 
+      figure = reactive({ samp_tree() })
+    )
 
     # k-Cluster elbow plot ----------
     output$k_clusters <- renderPlot({
