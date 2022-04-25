@@ -292,6 +292,8 @@ mod_03_clustering_ui <- function(id) {
               height = "500px"
             )
           ),
+          
+          mod_download_images_ui(ns("download_sd_density")), 
 
           # Sample Tree Plot ---------
           tabPanel(
@@ -417,14 +419,25 @@ mod_03_clustering_server <- function(id, pre_process, idep_data, tab) {
     })
 
     # Standard Deviation Density Plot ----------
-    output$sd_density_plot <- renderPlot({
+    sd_plot <- reactive({
       req(!is.null(pre_process$data()))
-
+      
       sd_density(
         data = pre_process$data(),
         n_genes_max = input$n_genes
       )
     })
+    
+    output$sd_density_plot <- renderPlot({
+      print(sd_plot())
+    })
+    
+    download_sd_density <- mod_download_images_server(
+      "download_sd_density", 
+      filename = "sd_density_plot", 
+      figure = reactive({ sd_plot() })
+      
+    )
 
     # Heatmap Data -----------
     heatmap_data <- reactive({
