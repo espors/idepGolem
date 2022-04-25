@@ -290,10 +290,10 @@ mod_03_clustering_ui <- function(id) {
               outputId = ns("sd_density_plot"),
               width = "100%",
               height = "500px"
-            )
+            ), 
+            mod_download_images_ui(ns("download_sd_density"))
           ),
           
-          mod_download_images_ui(ns("download_sd_density")), 
 
           # Sample Tree Plot ---------
           tabPanel(
