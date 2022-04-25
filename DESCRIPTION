@@ -59,6 +59,7 @@ Imports:
     SummarizedExperiment,
     tidyr,
     tidyselect,
+    tippy,
     utils,
     visNetwork,
     WGCNA
