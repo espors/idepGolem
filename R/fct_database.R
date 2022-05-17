@@ -22,7 +22,7 @@ DATAPATH <- "d:/idep_9_24/data/data104b/"
 #' @param datapath Folder path to the data file
 #'
 #' @return Database connection.
-connect_convert_db <- function(datapath = DATAPATH) {
+connect_convert_db <- function(datapath = Sys.getenv("DATAPATH")) {
   return(DBI::dbConnect(
     drv = RSQLite::dbDriver("SQLite"),
     dbname = paste0(datapath, "convertIDs.db"),
@@ -40,7 +40,7 @@ connect_convert_db <- function(datapath = DATAPATH) {
 #' @param datapath Folder path to the iDEP data
 #'
 #' @return Large list of the iDEP data.
-get_idep_data <- function(datapath = DATAPATH) {
+get_idep_data <- function(datapath = Sys.getenv("DATAPATH")) {
   kegg_species_id <- read.csv(paste0(datapath, "data_go/KEGG_Species_ID.csv"))
 
   gmt_files <- list.files(
